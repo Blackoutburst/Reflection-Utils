@@ -8,6 +8,14 @@ import java.util.Collection;
 
 public class NMSScoreboardTeam {
 
+    public enum TeamOption {
+        CREATE,
+        DELETE,
+        EDIT,
+        ADD_PLAYER,
+        REMOVE_PLAYER
+    }
+
     public enum TagVisibility {
         ALWAYS("always"),
         NEVER("never"),
@@ -21,7 +29,7 @@ public class NMSScoreboardTeam {
         }
     }
 
-    public static void send(Player player, String name, String displayName, String prefix, String suffix, TagVisibility tagVisibility, Collection<?> players) {
+    public static void send(Player player, TeamOption option, String name, String displayName, String prefix, String suffix, TagVisibility tagVisibility, Collection<?> players) {
         try {
             final Class<?> chatComponentTextClass = NMS.getClass("ChatComponentText");
             final Class<?> packetClass = NMS.getClass("PacketPlayOutScoreboardTeam");
@@ -37,6 +45,7 @@ public class NMSScoreboardTeam {
             NMS.setField(teamPacket, "d", chatComponentTextConstructor.newInstance(suffix));
             NMS.setField(teamPacket, "e", tagVisibility.name);
             NMS.setField(teamPacket, "h", players);
+            NMS.setField(teamPacket, "i", option.ordinal());
 
             NMS.sendPacket(player, teamPacket);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
