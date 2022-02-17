@@ -58,7 +58,8 @@ public class NMSParticles {
 
             final Enum particleType = Enum.valueOf(enumParticles, particle.name());
 
-            final Constructor<?> packetConstructor = packetClass.getDeclaredConstructors()[0];
+            final Constructor<?> packetConstructor = packetClass.getDeclaredConstructor();
+
             final Object particlesPacket = packetConstructor.newInstance();
 
             NMS.setField(particlesPacket, "a", particleType);
