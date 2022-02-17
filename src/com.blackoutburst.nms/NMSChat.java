@@ -13,17 +13,19 @@ public class NMSChat {
     }
 
     public static void send(Player player, String str, MessageType type) throws Exception {
-        final Constructor<?> chatComponentText;
+        try {
+            final Class<?> chatComponentClass = NMS.getClass("ChatComponentText");
 
-        final Class<?> typeChatComponentText = NMS.getClass("ChatComponentText");
+            final Constructor<?> chatComponentText = chatComponentClass.getConstructor(String.class);
 
-        final Object targetDisantcePacket = NMS.getClass("PacketPlayOutChat").getDeclaredConstructor().newInstance();
+            final Object chatPacket = NMS.getClass("PacketPlayOutChat").getDeclaredConstructor().newInstance();
 
-        chatComponentText = typeChatComponentText.getConstructor(String.class);
-
-        NMS.setField(targetDisantcePacket, "a", chatComponentText.newInstance(str));
-        NMS.setField(targetDisantcePacket, "b", (byte) type.ordinal());
-        NMS.sendPacket(player, targetDisantcePacket);
+            NMS.setField(chatPacket, "a", chatComponentText.newInstance(str));
+            NMS.setField(chatPacket, "b", (byte) type.ordinal());
+            NMS.sendPacket(player, chatPacket);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
