@@ -7,62 +7,65 @@ import java.lang.reflect.Constructor;
 public class NMSParticles {
 
     public enum ParticleType {
-        EXPLOSION_NORMAL,
-        EXPLOSION_LARGE,
-        EXPLOSION_HUGE,
-        FIREWORKS_SPARK,
-        WATER_BUBBLE,
-        WATER_SPLASH,
-        WATER_WAKE,
-        SUSPENDED,
-        SUSPENDED_DEPTH,
-        CRIT,
-        CRIT_MAGIC,
-        SMOKE_NORMAL,
-        SMOKE_LARGE,
-        SPELL,
-        SPELL_INSTANT,
-        SPELL_MOB,
-        SPELL_MOB_AMBIENT,
-        SPELL_WITCH,
-        DRIP_WATER,
-        DRIP_LAVA,
-        VILLAGER_ANGRY,
-        VILLAGER_HAPPY,
-        TOWN_AURA,
-        NOTE,
-        PORTAL,
-        ENCHANTMENT_TABLE,
-        FLAME,
-        LAVA,
-        FOOTSTEP,
-        CLOUD,
-        REDSTONE,
-        SNOWBALL,
-        SNOW_SHOVEL,
-        SLIME,
-        HEART,
-        BARRIER,
-        ITEM_CRACK,
-        BLOCK_CRACK,
-        BLOCK_DUST,
-        WATER_DROP,
-        ITEM_TAKE,
-        MOB_APPEARANCE
+        EXPLOSION_NORMAL("explode"),
+        EXPLOSION_LARGE("largeexplode"),
+        EXPLOSION_HUGE("hugeexplosion"),
+        FIREWORKS_SPARK("fireworksSpark"),
+        WATER_BUBBLE("bubble"),
+        WATER_SPLASH("splash"),
+        WATER_WAKE("wake"),
+        SUSPENDED("suspended"),
+        SUSPENDED_DEPTH("depthsuspend"),
+        CRIT("crit"),
+        CRIT_MAGIC("magicCrit"),
+        SMOKE_NORMAL("smoke"),
+        SMOKE_LARGE("largesmoke"),
+        SPELL("spell"),
+        SPELL_INSTANT("instantSpell"),
+        SPELL_MOB("mobSpell"),
+        SPELL_MOB_AMBIENT("mobSpellAmbient"),
+        SPELL_WITCH("witchMagic"),
+        DRIP_WATER("dripWater"),
+        DRIP_LAVA("dripLava"),
+        VILLAGER_ANGRY("angryVillager"),
+        VILLAGER_HAPPY("happyVillager"),
+        TOWN_AURA("townaura"),
+        NOTE("note"),
+        PORTAL("portal"),
+        ENCHANTMENT_TABLE("enchantmenttable"),
+        FLAME("flame"),
+        LAVA("lava"),
+        FOOTSTEP("footstep"),
+        CLOUD("cloud"),
+        REDSTONE("reddust"),
+        SNOWBALL("snowballpoof"),
+        SNOW_SHOVEL("snowshovel"),
+        SLIME("slime"),
+        HEART("heart"),
+        BARRIER("barrier"),
+        ITEM_CRACK("iconcrack_"),
+        BLOCK_CRACK("blockcrack_"),
+        BLOCK_DUST("blockdust_"),
+        WATER_DROP("droplet"),
+        ITEM_TAKE("take"),
+        MOB_APPEARANCE("mobappearance");
+
+        public final String name;
+
+        ParticleType(String name) {
+            this.name = name;
+        }
     }
 
     public static void send(Player player, ParticleType particle, float x, float y, float z, float r, float g, float b, int count) {
         try {
-            final Class enumParticles = NMS.getClass("EnumParticle");
             final Class<?> packetClass = NMS.getClass("PacketPlayOutWorldParticles");
-
-            final Enum particleType = Enum.valueOf(enumParticles, particle.name());
 
             final Constructor<?> packetConstructor = packetClass.getDeclaredConstructor();
 
             final Object particlesPacket = packetConstructor.newInstance();
 
-            NMS.setField(particlesPacket, "a", particleType);
+            NMS.setField(particlesPacket, "a", particle.name);
             NMS.setField(particlesPacket, "b", true);
             NMS.setField(particlesPacket, "c", x);
             NMS.setField(particlesPacket, "d", y);
