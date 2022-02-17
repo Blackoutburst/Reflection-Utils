@@ -1,5 +1,7 @@
 package com.blackoutburst.nms;
 
+import org.bukkit.entity.Player;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
@@ -19,7 +21,7 @@ public class NMSScoreboardTeam {
         }
     }
 
-    public static void send(String name, String displayName, String prefix, String suffix, TagVisibility tagVisibility, Collection<?> players) {
+    public static void send(Player player, String name, String displayName, String prefix, String suffix, TagVisibility tagVisibility, Collection<?> players) {
 
         try {
             final Class<?> chatComponentTextClass = NMS.getClass("ChatComponentText");
@@ -36,6 +38,8 @@ public class NMSScoreboardTeam {
             NMS.setField(teamPacket, "d", chatComponentTextConstructor.newInstance(suffix)); //suffix
             NMS.setField(teamPacket, "e", tagVisibility.name); //visibility
             NMS.setField(teamPacket, "h", players); //members
+
+            NMS.sendPacket(player, teamPacket);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
