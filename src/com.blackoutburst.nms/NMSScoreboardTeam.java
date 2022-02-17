@@ -22,7 +22,6 @@ public class NMSScoreboardTeam {
     }
 
     public static void send(Player player, String name, String displayName, String prefix, String suffix, TagVisibility tagVisibility, Collection<?> players) {
-
         try {
             final Class<?> chatComponentTextClass = NMS.getClass("ChatComponentText");
             final Class<?> packetClass = NMS.getClass("PacketPlayOutScoreboardTeam");
