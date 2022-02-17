@@ -31,12 +31,12 @@ public class NMSScoreboardTeam {
 
             final Object teamPacket = teamConstructor.newInstance();
 
-            NMS.setField(teamPacket, "a", name); //teamName
-            NMS.setField(teamPacket, "b", chatComponentTextConstructor.newInstance(displayName)); //displayName
-            NMS.setField(teamPacket, "c", chatComponentTextConstructor.newInstance(prefix)); //prefix
-            NMS.setField(teamPacket, "d", chatComponentTextConstructor.newInstance(suffix)); //suffix
-            NMS.setField(teamPacket, "e", tagVisibility.name); //visibility
-            NMS.setField(teamPacket, "h", players); //members
+            NMS.setField(teamPacket, "a", name);
+            NMS.setField(teamPacket, "b", chatComponentTextConstructor.newInstance(displayName));
+            NMS.setField(teamPacket, "c", chatComponentTextConstructor.newInstance(prefix));
+            NMS.setField(teamPacket, "d", chatComponentTextConstructor.newInstance(suffix));
+            NMS.setField(teamPacket, "e", tagVisibility.name);
+            NMS.setField(teamPacket, "h", players);
 
             NMS.sendPacket(player, teamPacket);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
