@@ -22,7 +22,6 @@ public class NMSScoreboard {
 
     public NMSScoreboard() {
         try {
-
             scoreboardClass = NMS.getClass("Scoreboard");
             objectiveClass = NMS.getClass("ScoreboardObjective");
 
