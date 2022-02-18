@@ -17,10 +17,12 @@ public class NMSScoreboard {
     public Object objective;
 
     private Class<?> scoreboardClass;
+    private Class<?> objectiveClass;
 
     public NMSScoreboard() {
         try {
             scoreboardClass = NMS.getClass("Scoreboard");
+            objectiveClass = NMS.getClass("ScoreboardObjective");
 
             final Constructor<?> scoreboardConstructor = scoreboardClass.getConstructor();
 
@@ -49,11 +51,19 @@ public class NMSScoreboard {
 
     public void setDisplaySlot(DisplaySlot slot) {
         try {
-            final Class<?> objectiveClass = NMS.getClass("ScoreboardObjective");
-
-            final Method method = scoreboardClass.getMethod("setDisplaySlot", int.class, objectiveClass);
+            final Method method = scoreboardClass.getMethod("setDisplaySlot", int.class, this.objectiveClass);
 
             method.invoke(null, slot.ordinal(), this.objective);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDisplayName(String name) {
+        try {
+            final Method method = objectiveClass.getMethod("setDisplayName", String.class);
+
+            method.invoke(null, name);
         } catch(Exception e) {
             e.printStackTrace();
         }
