@@ -1,5 +1,6 @@
 package com.blackoutburst.nms;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -7,6 +8,7 @@ import java.lang.reflect.Constructor;
 public class NMSExperience {
 
     public static void send(Player player, float percent) {
+        Bukkit.getScoreboardManager().getNewScoreboard();
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutExperience");
 
