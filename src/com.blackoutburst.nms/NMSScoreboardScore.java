@@ -27,4 +27,15 @@ public class NMSScoreboardScore {
             e.printStackTrace();
         }
     }
+
+    public void setScore(int value) {
+        try {
+            final Method method = scoreClass.getMethod("setScore", int.class);
+
+            method.invoke(null, value);
+            score = value;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
