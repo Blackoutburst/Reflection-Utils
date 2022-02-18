@@ -1,7 +1,5 @@
 package com.blackoutburst.nms;
 
-import org.bukkit.scoreboard.DisplaySlot;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
@@ -10,7 +8,7 @@ public class NMSScoreboard {
     public enum DisplaySlot {
         BELOW_NAME,
         PLAYER_LIST,
-        SIDEBAR;
+        SIDEBAR
     }
 
     public DisplaySlot slot;
@@ -77,5 +75,4 @@ public class NMSScoreboard {
             e.printStackTrace();
         }
     }
-
 }
