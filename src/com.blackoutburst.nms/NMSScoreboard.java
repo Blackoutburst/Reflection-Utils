@@ -11,11 +11,11 @@ public class NMSScoreboard {
         SIDEBAR
     }
 
-    public DisplaySlot slot;
-    public String name;
+    protected DisplaySlot slot;
+    protected String name;
 
-    public Object scoreboard;
-    public Object objective;
+    protected Object scoreboard;
+    protected Object objective;
 
     private Class<?> scoreboardClass;
     private Class<?> objectiveClass;
