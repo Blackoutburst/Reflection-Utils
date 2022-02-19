@@ -5,12 +5,20 @@ import java.lang.reflect.Method;
 
 public class NMSScoreboardScore {
 
-    public Object scoreboardScore;
+    protected Object scoreboardScore;
 
-    public String name;
-    public int score;
+    protected String name;
+    protected int score;
 
     private Class<?> scoreClass;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getScore() {
+        return score;
+    }
 
     public NMSScoreboardScore(NMSScoreboard scoreboard, String name) {
         try {
