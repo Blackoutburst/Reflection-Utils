@@ -2,8 +2,8 @@ package com.blackoutburst.nms;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NMSScoreboard {
 
@@ -13,6 +13,8 @@ public class NMSScoreboard {
         BELOW_NAME
     }
 
+    protected List<NMSScoreboardScore> lines;
+
     protected DisplaySlot slot;
 
     protected Object scoreboard;
@@ -21,9 +23,7 @@ public class NMSScoreboard {
     private Class<?> scoreboardClass;
     private Class<?> objectiveClass;
 
-    protected Set<NMSScoreboardScore> lines;
-
-    public Set<NMSScoreboardScore> getLines() {
+    public List<NMSScoreboardScore> getLines() {
         return lines;
     }
 
@@ -51,17 +51,13 @@ public class NMSScoreboard {
 
     public NMSScoreboard() {
         try {
-
-
             scoreboardClass = NMS.getClass("Scoreboard");
             objectiveClass = NMS.getClass("ScoreboardObjective");
 
             final Constructor<?> scoreboardConstructor = scoreboardClass.getConstructor();
 
             scoreboard = scoreboardConstructor.newInstance();
-            lines = new HashSet<>();
-
-            for (int i = 0; i < 15; i++) lines.add(new NMSScoreboardScore(this, ""));
+            lines = new ArrayList<>();
         } catch(Exception e) {
             e.printStackTrace();
         }
