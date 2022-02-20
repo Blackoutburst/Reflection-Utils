@@ -6,19 +6,40 @@ import java.lang.reflect.Method;
 public class NMSScoreboard {
 
     public enum DisplaySlot {
-        BELOW_NAME,
         PLAYER_LIST,
-        SIDEBAR
+        SIDEBAR,
+        BELOW_NAME
     }
 
     protected DisplaySlot slot;
-    protected String name;
 
     protected Object scoreboard;
     protected Object objective;
 
     private Class<?> scoreboardClass;
     private Class<?> objectiveClass;
+
+    public String getDisplaySlot() {
+        try {
+            final Method method = objectiveClass.getMethod("getSlotName", int.class);
+
+            return (String) method.invoke(objective, slot.ordinal());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return ("none");
+    }
+
+    public String getDisplayName() {
+        try {
+            final Method method = objectiveClass.getMethod("getDisplayName");
+
+            return (String) method.invoke(objective);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return ("none");
+    }
 
     public NMSScoreboard() {
         try {
@@ -37,15 +58,15 @@ public class NMSScoreboard {
     public void registerObjective(String name, String objective) {
         try {
             final Class<?> criteriaClass = NMS.getClass("ScoreboardBaseCriteria");
+            final Class<?> iCriteriaClass = NMS.getClass("IScoreboardCriteria");
 
             final Constructor<?> criteriaConstructor = criteriaClass.getConstructor(String.class);
 
             final Object criteria = criteriaConstructor.newInstance(objective);
 
-            final Method method = scoreboardClass.getMethod("registerObjective", String.class, criteriaClass);
+            final Method method = scoreboardClass.getMethod("registerObjective", String.class, iCriteriaClass);
 
-            this.objective = method.invoke(null, name, criteria);
-
+            this.objective = method.invoke(scoreboard, name, criteria);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -55,8 +76,7 @@ public class NMSScoreboard {
         try {
             final Method method = scoreboardClass.getMethod("setDisplaySlot", int.class, this.objectiveClass);
 
-            method.invoke(null, slot.ordinal(), this.objective);
-
+            method.invoke(scoreboard, slot.ordinal(), this.objective);
             this.slot = slot;
         } catch(Exception e) {
             e.printStackTrace();
@@ -67,9 +87,8 @@ public class NMSScoreboard {
         try {
             final Method method = objectiveClass.getMethod("setDisplayName", String.class);
 
-            method.invoke(null, name);
+            method.invoke(objective, name);
 
-            this.name = name;
         } catch(Exception e) {
             e.printStackTrace();
         }

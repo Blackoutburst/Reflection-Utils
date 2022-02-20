@@ -8,7 +8,6 @@ public class NMSScoreboardScore {
     protected Object scoreboardScore;
 
     protected String name;
-    protected int score;
 
     private Class<?> scoreClass;
 
@@ -17,7 +16,14 @@ public class NMSScoreboardScore {
     }
 
     public int getScore() {
-        return score;
+        try {
+            final Method method = scoreClass.getMethod("getScore");
+
+            return (int) method.invoke(scoreboardScore);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return (-1);
     }
 
     public NMSScoreboardScore(NMSScoreboard scoreboard, String name) {
@@ -29,7 +35,7 @@ public class NMSScoreboardScore {
 
             final Constructor<?> scoreboardConstructor = scoreClass.getConstructor(scoreboardClass, scoreboardObjectiveClass, String.class);
 
-            scoreboardScore = scoreboardConstructor.newInstance(scoreboard, scoreboard.objective, name);
+            scoreboardScore = scoreboardConstructor.newInstance(scoreboard.scoreboard, scoreboard.objective, name);
             this.name = name;
         } catch(Exception e) {
             e.printStackTrace();
@@ -40,8 +46,7 @@ public class NMSScoreboardScore {
         try {
             final Method method = scoreClass.getMethod("setScore", int.class);
 
-            method.invoke(null, value);
-            score = value;
+            method.invoke(scoreboardScore, value);
         } catch(Exception e) {
             e.printStackTrace();
         }
