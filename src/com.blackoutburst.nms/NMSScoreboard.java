@@ -49,7 +49,6 @@ public class NMSScoreboard {
             final Constructor<?> scoreboardConstructor = scoreboardClass.getConstructor();
 
             scoreboard = scoreboardConstructor.newInstance();
-
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -88,7 +87,6 @@ public class NMSScoreboard {
             final Method method = objectiveClass.getMethod("setDisplayName", String.class);
 
             method.invoke(objective, name);
-
         } catch(Exception e) {
             e.printStackTrace();
         }
