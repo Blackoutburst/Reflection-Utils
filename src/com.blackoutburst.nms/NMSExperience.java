@@ -8,7 +8,6 @@ import java.lang.reflect.Constructor;
 public class NMSExperience {
 
     public static void send(Player player, float percent) {
-        Bukkit.getScoreboardManager().getNewScoreboard();
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutExperience");
 
