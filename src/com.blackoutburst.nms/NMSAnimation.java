@@ -8,12 +8,12 @@ public class NMSAnimation {
 
     public static void animation(Player player, NMSEntities npc, int animation) {
         try {
-            Class<?> packetClass = NMS.getClass("PacketPlayOutAnimation");
-            Class<?> entityClass = NMS.getClass("Entity");
+            final Class<?> packetClass = NMS.getClass("PacketPlayOutAnimation");
+            final Class<?> entityClass = NMS.getClass("Entity");
 
-            Constructor<?> packetConstructor = packetClass.getConstructor(entityClass, int.class);
+            final Constructor<?> packetConstructor = packetClass.getConstructor(entityClass, int.class);
 
-            Object packet = packetConstructor.newInstance(npc.entity, animation);
+            final Object packet = packetConstructor.newInstance(npc.entity, animation);
 
             NMS.sendPacket(player, packet);
         } catch (Exception e) {
