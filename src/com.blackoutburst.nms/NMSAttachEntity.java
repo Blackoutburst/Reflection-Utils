@@ -1,6 +1,5 @@
 package com.blackoutburst.nms;
 
-import org.bukkit.entity.NPC;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
