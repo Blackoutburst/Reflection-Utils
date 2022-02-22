@@ -6,6 +6,15 @@ import java.lang.reflect.Constructor;
 
 public class NMSEntityEquipment {
 
+
+    /**
+     * Make an entity wear equipment
+     *
+     * @param player the player that will receive the packet
+     * @param entityID the entity that will wear equipment
+     * @param itemID the item ID
+     * @param slot the equipment slot used
+     */
     public static void send(Player player, int entityID, int itemID, int slot) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutEntityEquipment");

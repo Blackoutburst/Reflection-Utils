@@ -1,7 +1,6 @@
 package com.blackoutburst.nms;
 
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 
 import java.io.File;
@@ -9,9 +8,16 @@ import java.lang.reflect.Constructor;
 
 public class NMSWorld {
 
-    private static Object getDataManager(Player player) {
+    /**
+     * Get the world data manager
+     *
+     * @param world the world used to retrieve the data manager
+     *
+     * @return the world data manager
+     */
+    private static Object getDataManager(World world) {
         try {
-            final String worldName = player.getWorld().getName();
+            final String worldName = world.getName();
 
             final Class<?> iDataManagerClass = NMS.getClass("ServerNBTManager");
 
@@ -24,6 +30,12 @@ public class NMSWorld {
         return null;
     }
 
+    /**
+     * Get the world data
+     *
+     * @param worldDataClass the world data class
+     * @return the world data
+     */
     private static Object getWorldData(Class<?> worldDataClass) {
         try {
             final Class<?> nbtClass = NMS.getClass("NBTTagCompound");
@@ -38,6 +50,12 @@ public class NMSWorld {
         return null;
     }
 
+    /**
+     * Get the world method profiler
+     *
+     * @param methodProfilerClass the method profiler class
+     * @return the method profiler
+     */
     private static Object getMethodProfiler(Class<?> methodProfilerClass) {
         try {
             final Constructor<?> methodProfilerConstructor = methodProfilerClass.getConstructor();
@@ -49,7 +67,13 @@ public class NMSWorld {
         return null;
     }
 
-    public static Object getWorld(Player player) {
+    /**
+     * Get the world instance
+     *
+     * @param world the world used to create a NMS copies of it
+     * @return the NMS world
+     */
+    public static Object getWorld(World world) {
         try {
             final Class<?> serverClass = NMS.getClass("MinecraftServer");
             final Class<?> iDataManagerClass = NMS.getClass("IDataManager");
@@ -59,12 +83,12 @@ public class NMSWorld {
 
             final Constructor<?> worldConstructor = worldClass.getConstructor(serverClass, iDataManagerClass, worldDataClass, int.class, methodProfilerClass, World.Environment.class, ChunkGenerator.class);
 
-            final Object iDataManager = getDataManager(player);
+            final Object iDataManager = getDataManager(world);
             final Object worldData = getWorldData(worldDataClass);
             final Object methodProfiler = getMethodProfiler(methodProfilerClass);
             final Object server = serverClass.getMethod("getServer").invoke(null);
 
-            return worldConstructor.newInstance(server, iDataManager, worldData, 0, methodProfiler, World.Environment.NORMAL, player.getWorld().getGenerator());
+            return worldConstructor.newInstance(server, iDataManager, worldData, 0, methodProfiler, World.Environment.NORMAL,world.getGenerator());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -8,6 +8,9 @@ import java.util.Collection;
 
 public class NMSScoreboardTeam {
 
+    /**
+     * Define all the possible team option
+     */
     public enum TeamOption {
         CREATE,
         DELETE,
@@ -16,6 +19,9 @@ public class NMSScoreboardTeam {
         REMOVE_PLAYER
     }
 
+    /**
+     * Define the tag visibility
+     */
     public enum TagVisibility {
         ALWAYS("always"),
         NEVER("never"),
@@ -29,6 +35,18 @@ public class NMSScoreboardTeam {
         }
     }
 
+    /**
+     * Create a new team for a player
+     *
+     * @param player the player that will receive the packet
+     * @param option the team option
+     * @param name the name of the team
+     * @param displayName the display name of the team
+     * @param prefix the team prefix
+     * @param suffix the team suffix
+     * @param tagVisibility the team tag visibility
+     * @param players the team members
+     */
     public static void send(Player player, TeamOption option, String name, String displayName, String prefix, String suffix, TagVisibility tagVisibility, Collection<?> players) {
         try {
             final Class<?> chatComponentTextClass = NMS.getClass("ChatComponentText");

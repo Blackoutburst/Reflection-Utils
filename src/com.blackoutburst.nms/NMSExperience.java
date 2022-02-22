@@ -6,6 +6,12 @@ import java.lang.reflect.Constructor;
 
 public class NMSExperience {
 
+    /**
+     * Change the amount of xp a player will see
+     *
+     * @param player the player that will receive the packet
+     * @param percent the percentage of the xp bar you want to fill
+     */
     public static void send(Player player, float percent) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutExperience");

@@ -6,6 +6,16 @@ import java.lang.reflect.Constructor;
 
 public class NMSTitle {
 
+    /**
+     * Display a title for a player
+     *
+     * @param player the player that will receive the packet
+     * @param title the title text
+     * @param subtitle the subtitle text
+     * @param fadeIn the fade in delay in ticks
+     * @param stay the number of ticks the title will stay
+     * @param fadeOut the fade out delay in ticks
+     */
     public static void send(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
         try {
             final Class<?> playOutTitle = NMS.getClass("PacketPlayOutTitle");

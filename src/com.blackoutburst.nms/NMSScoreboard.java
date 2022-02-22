@@ -7,6 +7,9 @@ import java.util.List;
 
 public class NMSScoreboard {
 
+    /**
+     * Define all possible scoreboard slot
+     */
     public enum DisplaySlot {
         PLAYER_LIST,
         SIDEBAR,
@@ -27,6 +30,11 @@ public class NMSScoreboard {
         return lines;
     }
 
+    /**
+     * Get the scoreboard slot
+     *
+     * @return the name of the display slot
+     */
     public String getDisplaySlot() {
         try {
             final Method method = objectiveClass.getMethod("getSlotName", int.class);
@@ -38,6 +46,11 @@ public class NMSScoreboard {
         return ("none");
     }
 
+    /**
+     * Get the scoreboard display name
+     *
+     * @return the scoreboard display name
+     */
     public String getDisplayName() {
         try {
             final Method method = objectiveClass.getMethod("getDisplayName");
@@ -49,6 +62,9 @@ public class NMSScoreboard {
         return ("none");
     }
 
+    /**
+     * Create a new scoreboard
+     */
     public NMSScoreboard() {
         try {
             scoreboardClass = NMS.getClass("Scoreboard");
@@ -63,6 +79,12 @@ public class NMSScoreboard {
         }
     }
 
+    /**
+     * Register a new objective for the scoreboard
+     *
+     * @param name the objective name
+     * @param objective the objective type/criteria
+     */
     public void registerObjective(String name, String objective) {
         try {
             final Class<?> criteriaClass = NMS.getClass("ScoreboardBaseCriteria");
@@ -80,6 +102,11 @@ public class NMSScoreboard {
         }
     }
 
+    /**
+     * Set the scoreboard display slot
+     *
+     * @param slot the display slot
+     */
     public void setDisplaySlot(DisplaySlot slot) {
         try {
             final Method method = scoreboardClass.getMethod("setDisplaySlot", int.class, this.objectiveClass);
@@ -91,6 +118,11 @@ public class NMSScoreboard {
         }
     }
 
+    /**
+     * Set the scoreboard display name
+     *
+     * @param name the display name
+     */
     public void setDisplayName(String name) {
         try {
             final Method method = objectiveClass.getMethod("setDisplayName", String.class);

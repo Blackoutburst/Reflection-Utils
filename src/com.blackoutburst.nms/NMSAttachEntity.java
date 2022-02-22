@@ -6,6 +6,13 @@ import java.lang.reflect.Constructor;
 
 public class NMSAttachEntity {
 
+    /**
+     * Make two entity ride each other
+     *
+     * @param player the player that will receive the packet
+     * @param rider the entity that will be on top
+     * @param mount the entity that will be mounted
+     */
     public static void send(Player player, NMSEntities rider, NMSEntities mount) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutAttachEntity");

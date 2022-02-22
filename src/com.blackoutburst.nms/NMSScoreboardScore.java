@@ -11,10 +11,20 @@ public class NMSScoreboardScore {
 
     private Class<?> scoreClass;
 
+    /**
+     * Get the score name
+     *
+     * @return the score name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get the scoreboard score, score
+     *
+     * @return the score
+     */
     public int getScore() {
         try {
             final Method method = scoreClass.getMethod("getScore");
@@ -26,6 +36,12 @@ public class NMSScoreboardScore {
         return (-1);
     }
 
+    /**
+     * Create a new scoreboard score
+     *
+     * @param scoreboard the scoreboard used to create the score
+     * @param name the name of the score
+     */
     public NMSScoreboardScore(NMSScoreboard scoreboard, String name) {
         try {
             scoreClass = NMS.getClass("ScoreboardScore");
@@ -42,6 +58,13 @@ public class NMSScoreboardScore {
         }
     }
 
+    /**
+     * Create a new scoreboard score
+     *
+     * @param scoreboard the scoreboard used to create the score
+     * @param name the name of the score
+     * @param score the score of the score
+     */
     public NMSScoreboardScore(NMSScoreboard scoreboard, String name, int score) {
         try {
             scoreClass = NMS.getClass("ScoreboardScore");
@@ -59,6 +82,11 @@ public class NMSScoreboardScore {
         }
     }
 
+    /**
+     * Set the score of the scoreboard score
+     *
+     * @param value the new score
+     */
     public void setScore(int value) {
         try {
             final Method method = scoreClass.getMethod("setScore", int.class);

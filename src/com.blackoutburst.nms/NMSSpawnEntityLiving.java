@@ -6,6 +6,12 @@ import java.lang.reflect.Constructor;
 
 public class NMSSpawnEntityLiving {
 
+    /**
+     * Spawn a new entity
+     *
+     * @param player the player that will receive the packet
+     * @param entity the entity that will be spawned
+     */
     public static void send(Player player, NMSEntities entity) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutSpawnEntityLiving");

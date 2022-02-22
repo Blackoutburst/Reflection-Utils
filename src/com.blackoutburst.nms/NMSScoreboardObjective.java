@@ -6,12 +6,22 @@ import java.lang.reflect.Constructor;
 
 public class NMSScoreboardObjective {
 
+    /**
+     * The objective actions
+     */
     public enum ObjectiveOption {
         CREATE,
         DELETE,
         EDIT
     }
 
+    /**
+     * Perform an action on a scoreboard objective
+     *
+     * @param player the player that will receive the packet
+     * @param scoreboard the scoreboard containing the objective
+     * @param option the action performed
+     */
     public static void send(Player player, NMSScoreboard scoreboard, ObjectiveOption option) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutScoreboardObjective");

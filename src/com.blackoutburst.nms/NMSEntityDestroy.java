@@ -6,6 +6,13 @@ import java.lang.reflect.Constructor;
 
 public class NMSEntityDestroy {
 
+
+    /**
+     * Remove an entity for a player
+     *
+     * @param player the player that will receive the packet
+     * @param id the entity ID
+     */
     public static void send(Player player, int id) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutEntityDestroy");

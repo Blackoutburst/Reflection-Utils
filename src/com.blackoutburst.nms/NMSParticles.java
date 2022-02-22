@@ -7,6 +7,9 @@ import java.lang.reflect.Constructor;
 
 public class NMSParticles {
 
+    /**
+     * Define every particle type
+     */
     public enum ParticleType {
         EXPLOSION_NORMAL,
         EXPLOSION_LARGE,
@@ -52,6 +55,19 @@ public class NMSParticles {
         MOB_APPEARANCE
     }
 
+    /**
+     * Spawn a new particle in a defined location
+     *
+     * @param player the player that will receive the packet
+     * @param particle the type of particle that will spawn
+     * @param x the x position
+     * @param y the y position
+     * @param z the z position
+     * @param r extra x parameter
+     * @param g extra y parameter
+     * @param b extra z parameter
+     * @param count the number of particles you want to spawn
+     */
     public static void send(Player player, ParticleType particle, float x, float y, float z, float r, float g, float b, int count) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutWorldParticles");

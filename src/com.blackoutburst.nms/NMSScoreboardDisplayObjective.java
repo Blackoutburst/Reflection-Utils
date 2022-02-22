@@ -6,6 +6,12 @@ import java.lang.reflect.Constructor;
 
 public class NMSScoreboardDisplayObjective {
 
+    /**
+     * Display a new scoreboard objective for a player
+     *
+     * @param player the player that will receive the packet
+     * @param scoreboard the scoreboard containing the objective
+     */
     public static void send(Player player, NMSScoreboard scoreboard) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutScoreboardDisplayObjective");

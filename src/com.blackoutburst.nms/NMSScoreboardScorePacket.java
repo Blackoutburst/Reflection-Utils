@@ -6,6 +6,12 @@ import java.lang.reflect.Constructor;
 
 public class NMSScoreboardScorePacket {
 
+    /**
+     * Create a new score for the player
+     *
+     * @param player the player that will receive the packet
+     * @param score the scoreboard score
+     */
     public static void send(Player player, NMSScoreboardScore score) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutScoreboardScore");
@@ -21,6 +27,12 @@ public class NMSScoreboardScorePacket {
         }
     }
 
+    /**
+     * Remove a score for the player
+     *
+     * @param player the player that will receive the packet
+     * @param score the scoreboard score
+     */
     public static void remove(Player player, NMSScoreboardScore score) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutScoreboardScore");
