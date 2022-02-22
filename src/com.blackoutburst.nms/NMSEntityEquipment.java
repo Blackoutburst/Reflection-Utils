@@ -6,6 +6,16 @@ import java.lang.reflect.Constructor;
 
 public class NMSEntityEquipment {
 
+    /**
+     * Define the possible equipment slot
+     */
+    public enum EquipmentSlot {
+        HAND,
+        BOOTS,
+        LEGGINGS,
+        CHEST_PLATE,
+        HELMET
+    }
 
     /**
      * Make an entity wear equipment
@@ -15,7 +25,7 @@ public class NMSEntityEquipment {
      * @param itemID the item ID
      * @param slot the equipment slot used
      */
-    public static void send(Player player, int entityID, int itemID, int slot) {
+    public static void send(Player player, int entityID, int itemID, EquipmentSlot slot) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutEntityEquipment");
             final Class<?> itemClass = NMS.getClass("Item");
@@ -25,7 +35,7 @@ public class NMSEntityEquipment {
             final Constructor<?> itemStackConstructor = itemStackClass.getConstructor(itemClass);
 
             final Object itemStack = itemStackConstructor.newInstance(itemClass.getMethod("getById", int.class).invoke(null, itemID));
-            final Object packet = packetConstructor.newInstance(entityID, slot, itemStack);
+            final Object packet = packetConstructor.newInstance(entityID, slot.ordinal(), itemStack);
 
             NMS.sendPacket(player, packet);
         } catch (Exception e) {
