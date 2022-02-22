@@ -20,5 +20,4 @@ public class NMSEntityDestroy {
             e.printStackTrace();
         }
     }
-
 }

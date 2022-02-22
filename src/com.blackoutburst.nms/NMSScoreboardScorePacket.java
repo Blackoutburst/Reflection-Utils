@@ -34,5 +34,4 @@ public class NMSScoreboardScorePacket {
             e.printStackTrace();
         }
     }
-
 }

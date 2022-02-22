@@ -24,5 +24,4 @@ public class NMSEntityTeleport {
             e.printStackTrace();
         }
     }
-
 }

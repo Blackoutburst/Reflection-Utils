@@ -26,5 +26,4 @@ public class NMSScoreboardObjective {
             e.printStackTrace();
         }
     }
-
 }
