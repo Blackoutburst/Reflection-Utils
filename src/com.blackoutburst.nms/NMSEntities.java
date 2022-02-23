@@ -14,71 +14,72 @@ public class NMSEntities {
      * Define all the entity types
      */
     public enum EntityType {
-        ARMOR_STAND("EntityArmorStand"),
-        ARROW("EntityArrow"),
-        BAT("EntityBat"),
-        BLAZE("EntityBlaze"),
-        BOAT("EntityBoat"),
-        CAVE_SPIDER("EntityCaveSpider"),
-        CHICKEN("EntityChicken"),
-        COW("EntityCow"),
-        CREEPER("EntityCreeper"),
-        EGG("EntityEgg"),
-        ENDER_CRYSTAL("EntityEnderCrystal"),
-        ENDER_DRAGON("EnityEnderDragon"),
-        ENDERMAN("EntityEnderman"),
-        ENDERMITE("EntityEndermite"),
-        ENDER_PEARL("EntityEnderPearl"),
-        EXPERIENCE_ORB("EntityExperienceOrb"),
-        FALLING_BLOCK("EntityFallingBlock"),
-        FIREWORK("EntityFireworks"),
-        GHAST("EntityGhast"),
-        GIANT("EntityGiantZombie"),
-        GUARDIAN("EntityGuardian"),
-        HORSE("EntityHorse"),
-        IRON_GOLEM("EntityIronGolem"),
-        ITEM("EntityItem"),
-        ITEM_FRAME("EntityItemFrame"),
-        LARGE_FIREBALL("EntityLargeFireball"),
-        LIGHTNING("EntityLightning"),
-        MAGMA_CUBE("EntityMagmaCube"),
-        MINECART_CHEST("EntityMinecartChest"),
-        MINECART_COMMAND_BLOCK("EntityMinecartCommandBlock"),
-        MINECART_CONTAINER("EntityMinecartContainer"),
-        MINECART_FURNACE("EntityMinecartFurnace"),
-        MINECART_HOPPER("EntityMinecartHopper"),
-        MINECART_MOB_SPAWNER("EntityMinecartMobSpawner"),
-        MINECART_TNT("EntityMinecartTNT"),
-        MUSHROOM_COW("EntityMushroomCow"),
-        OCELOT("EntityOcelot"),
-        PAINTING("EntityPainting"),
-        PIG("EntityPig"),
-        PIG_ZOMBIE("EntityPigZombie"),
-        PLAYER("EntityPlayer"),
-        POTION("EntityPotion"),
-        RABBIT("EntityRabbit"),
-        SHEEP("EntitySheep"),
-        SILVERFISH("EntitySilverfish"),
-        SKELETON("EntitySkeleton"),
-        SLIME("EntitySlime"),
-        SMALL_FIREBALL("EntitySmallFireball"),
-        SNOWBALL("EntitySnowball"),
-        SNOWMAN("EntitySnowman"),
-        SPIDER("EntitySpider"),
-        SQUID("EntitySquid"),
-        EXPERIENCE_BOTTLE("EntityExperienceBottle"),
-        TNT("EntityTNTPrimed"),
-        VILLAGER("EntityVillager"),
-        WITCH("EntityWitch"),
-        WITHER("EntityWither"),
-        WITHER_SKULL("EntityWitherSkull"),
-        WOLF("EntityWolf"),
-        ZOMBIE("EntityZombie");
+        ARMOR_STAND("EntityArmorStand", NMS.getClass("World")),
+        ARROW("EntityArrow", NMS.getClass("World"), double.class, double.class, double.class),
+        BAT("EntityBat", NMS.getClass("World")),
+        BLAZE("EntityBlaze", NMS.getClass("World")),
+        BOAT("EntityBoat", NMS.getClass("World")),
+        CAVE_SPIDER("EntityCaveSpider", NMS.getClass("World")),
+        CHICKEN("EntityChicken", NMS.getClass("World")),
+        COW("EntityCow", NMS.getClass("World")),
+        CREEPER("EntityCreeper", NMS.getClass("World")),
+        EGG("EntityEgg", NMS.getClass("World"), double.class, double.class, double.class),
+        ENDER_CRYSTAL("EntityEnderCrystal", NMS.getClass("World")),
+        ENDER_DRAGON("EnityEnderDragon", NMS.getClass("World")),
+        ENDERMAN("EntityEnderman", NMS.getClass("World")),
+        ENDERMITE("EntityEndermite", NMS.getClass("World")),
+        ENDER_PEARL("EntityEnderPearl", NMS.getClass("World")),
+        EXPERIENCE_ORB("EntityExperienceOrb", NMS.getClass("World"), double.class, double.class, double.class),
+        FALLING_BLOCK("EntityFallingBlock", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("IBlockData")),
+        FIREWORK("EntityFireworks", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("ItemStack")),
+        GHAST("EntityGhast", NMS.getClass("World")),
+        GIANT("EntityGiantZombie", NMS.getClass("World")),
+        GUARDIAN("EntityGuardian", NMS.getClass("World")),
+        HORSE("EntityHorse", NMS.getClass("World")),
+        IRON_GOLEM("EntityIronGolem", NMS.getClass("World")),
+        ITEM("EntityItem", NMS.getClass("World"), double.class, double.class, double.class),
+        ITEM_FRAME("EntityItemFrame", NMS.getClass("World"), NMS.getClass("BlockPosition"), NMS.getClass("EnumDirection")),
+        LARGE_FIREBALL("EntityLargeFireball", NMS.getClass("World")),
+        LIGHTNING("EntityLightning", NMS.getClass("World"), double.class, double.class, double.class),
+        MAGMA_CUBE("EntityMagmaCube", NMS.getClass("World")),
+        MINECART_CHEST("EntityMinecartChest", NMS.getClass("World")),
+        MINECART_COMMAND_BLOCK("EntityMinecartCommandBlock", NMS.getClass("World")),
+        MINECART_FURNACE("EntityMinecartFurnace", NMS.getClass("World")),
+        MINECART_HOPPER("EntityMinecartHopper", NMS.getClass("World")),
+        MINECART_MOB_SPAWNER("EntityMinecartMobSpawner", NMS.getClass("World")),
+        MINECART_TNT("EntityMinecartTNT", NMS.getClass("World")),
+        MUSHROOM_COW("EntityMushroomCow", NMS.getClass("World")),
+        OCELOT("EntityOcelot", NMS.getClass("World")),
+        PAINTING("EntityPainting", NMS.getClass("World"), NMS.getClass("BlockPosition"), NMS.getClass("EnumDirection")),
+        PIG("EntityPig", NMS.getClass("World")),
+        PIG_ZOMBIE("EntityPigZombie", NMS.getClass("World")),
+        PLAYER("EntityPlayer", NMS.getClass("MinecraftServer"), NMS.getClass("WorldServer"), NMS.getClass("GameProfile"), NMS.getClass("PlayerInteractManager")),
+        POTION("EntityPotion", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("ItemStack")),
+        RABBIT("EntityRabbit", NMS.getClass("World")),
+        SHEEP("EntitySheep", NMS.getClass("World")),
+        SILVERFISH("EntitySilverfish", NMS.getClass("World")),
+        SKELETON("EntitySkeleton", NMS.getClass("World")),
+        SLIME("EntitySlime", NMS.getClass("World")),
+        SMALL_FIREBALL("EntitySmallFireball", NMS.getClass("World")),
+        SNOWBALL("EntitySnowball", NMS.getClass("World"), double.class, double.class, double.class),
+        SNOWMAN("EntitySnowman", NMS.getClass("World")),
+        SPIDER("EntitySpider", NMS.getClass("World")),
+        SQUID("EntitySquid", NMS.getClass("World")),
+        EXPERIENCE_BOTTLE("EntityExperienceBottle", NMS.getClass("World"), double.class, double.class, double.class),
+        TNT("EntityTNTPrimed", NMS.getClass("World")),
+        VILLAGER("EntityVillager", NMS.getClass("World")),
+        WITCH("EntityWitch", NMS.getClass("World")),
+        WITHER("EntityWither", NMS.getClass("World")),
+        WITHER_SKULL("EntityWitherSkull", NMS.getClass("World")),
+        WOLF("EntityWolf", NMS.getClass("World")),
+        ZOMBIE("EntityZombie", NMS.getClass("World"));
 
         public final String className;
+        public final Class<?>[] constructorArgs;
 
-        EntityType(String className) {
+        EntityType(String className, Class<?>... constructorArgs) {
             this.className = className;
+            this.constructorArgs = constructorArgs;
         }
     }
 
@@ -97,16 +98,16 @@ public class NMSEntities {
      * @param world the world used to spawn the entity
      * @param type the type of entity that will be spawned
      */
-    public NMSEntities(World world, EntityType type) {
+    public NMSEntities(World world, EntityType type, Object... parameters) {
         try {
             final Class<?> entityClass = NMS.getClass(type.className);
-            final Class<?> worldClass = NMS.getClass("World");
 
-            final Constructor<?> dragonConstructor = entityClass.getConstructor(worldClass);
+            final Constructor<?> dragonConstructor = entityClass.getConstructor(type.constructorArgs);
 
             final Method getId = entity.getClass().getMethod("getId");
 
-            entity = dragonConstructor.newInstance(NMSWorld.getWorld(world));
+            parameters = new Object[] {NMSWorld.getWorld(world), parameters};
+            entity = dragonConstructor.newInstance(parameters);
 
             ID = (int) getId.invoke(entity);
         } catch (Exception e) {
