@@ -102,12 +102,12 @@ public class NMSEntities {
         try {
             final Class<?> entityClass = NMS.getClass(type.className);
 
-            final Constructor<?> dragonConstructor = entityClass.getConstructor(type.constructorArgs);
+            final Constructor<?> entityConstructor = entityClass.getConstructor(type.constructorArgs);
 
             final Method getId = entity.getClass().getMethod("getId");
 
             parameters = new Object[] {NMSWorld.getWorld(world), parameters};
-            entity = dragonConstructor.newInstance(parameters);
+            entity = entityConstructor.newInstance(parameters);
 
             ID = (int) getId.invoke(entity);
         } catch (Exception e) {
