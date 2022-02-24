@@ -8,6 +8,9 @@ import java.util.List;
 
 public class NMSPlayerInfo {
 
+    /**
+     * Define all possible player actions
+     */
     public enum PlayerInfoAction {
         ADD_PLAYER,
         UPDATE_GAME_MODE,
@@ -16,6 +19,12 @@ public class NMSPlayerInfo {
         REMOVE_PLAYER
     }
 
+    /**
+     * Send player action packet
+     * @param player the player that will receive the packet
+     * @param action the action performed
+     * @param entity the entity performing the action
+     */
     public static void send(Player player, PlayerInfoAction action, NMSEntities entity) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutPlayerInfo");
