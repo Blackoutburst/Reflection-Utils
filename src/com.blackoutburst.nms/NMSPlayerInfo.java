@@ -28,7 +28,6 @@ public class NMSPlayerInfo {
     public static void send(Player player, PlayerInfoAction action, NMSEntities entity) {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutPlayerInfo");
-            final Class<?> playerClass = NMS.getClass("EntityPlayer");
             final Class enumClass = NMS.getClass("PacketPlayOutPlayerInfo.EnumPlayerInfoAction");
 
             final Enum actionType = Enum.valueOf(enumClass, action.toString());
