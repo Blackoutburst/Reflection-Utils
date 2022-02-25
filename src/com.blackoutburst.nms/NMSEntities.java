@@ -1,5 +1,7 @@
 package com.blackoutburst.nms;
 
+import com.blackoutburst.nms.NMS;
+import com.blackoutburst.nms.NMSWorld;
 import org.bukkit.World;
 
 import java.lang.reflect.Constructor;
@@ -52,7 +54,7 @@ public class NMSEntities {
         PAINTING("EntityPainting", NMS.getClass("World"), NMS.getClass("BlockPosition"), NMS.getClass("EnumDirection")),
         PIG("EntityPig", NMS.getClass("World")),
         PIG_ZOMBIE("EntityPigZombie", NMS.getClass("World")),
-        PLAYER("EntityPlayer", NMS.getClass("MinecraftServer"), NMS.getClass("WorldServer"), NMS.getClass("GameProfile"), NMS.getClass("PlayerInteractManager")),
+        PLAYER("EntityPlayer", NMS.getClass("MinecraftServer"), NMS.getClass("WorldServer"), CMA.getClass("GameProfile"), NMS.getClass("PlayerInteractManager")),
         POTION("EntityPotion", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("ItemStack")),
         RABBIT("EntityRabbit", NMS.getClass("World")),
         SHEEP("EntitySheep", NMS.getClass("World")),
@@ -124,8 +126,9 @@ public class NMSEntities {
 
             final Constructor<?> entityConstructor = entityClass.getConstructor(type.constructorArgs);
 
-            parameters = new Object[] {NMSWorld.getWorld(world), parameters};
-            entity = entityConstructor.newInstance(parameters);
+            final Object[] args = parameters.length == 0 ? new Object[] {NMSWorld.getWorld(world)} :  new Object[] {NMSWorld.getWorld(world), parameters};
+
+            entity = entityConstructor.newInstance(args);
 
         } catch (Exception e) {
             e.printStackTrace();
