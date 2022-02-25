@@ -8,7 +8,6 @@ import java.lang.reflect.Method;
 public class NMSEntities {
 
     protected Object entity;
-    protected int ID;
 
     /**
      * Define all the entity types
@@ -89,7 +88,28 @@ public class NMSEntities {
      * @return the entity ID
      */
     public int getID() {
-        return ID;
+        try {
+            final Method getId = entity.getClass().getMethod("getId");
+            return (int) getId.invoke(entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    /**
+     * Allow you to get the DataWatcher
+     *
+     * @return the entity DataWatcher
+     */
+    public Object getDataWatcher() {
+        try {
+            final Method getDataWatcher = entity.getClass().getMethod("getDataWatcher");
+            return getDataWatcher.invoke(entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -104,12 +124,9 @@ public class NMSEntities {
 
             final Constructor<?> entityConstructor = entityClass.getConstructor(type.constructorArgs);
 
-            final Method getId = entity.getClass().getMethod("getId");
-
             parameters = new Object[] {NMSWorld.getWorld(world), parameters};
             entity = entityConstructor.newInstance(parameters);
 
-            ID = (int) getId.invoke(entity);
         } catch (Exception e) {
             e.printStackTrace();
         }
