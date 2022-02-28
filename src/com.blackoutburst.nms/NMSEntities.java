@@ -1,87 +1,104 @@
 package com.blackoutburst.nms;
 
-import com.blackoutburst.nms.NMS;
-import com.blackoutburst.nms.NMSWorld;
 import org.bukkit.World;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class NMSEntities {
 
     protected Object entity;
+    protected int networkID;
 
     /**
      * Define all the entity types
      */
     public enum EntityType {
-        ARMOR_STAND("EntityArmorStand", NMS.getClass("World")),
-        ARROW("EntityArrow", NMS.getClass("World"), double.class, double.class, double.class),
-        BAT("EntityBat", NMS.getClass("World")),
-        BLAZE("EntityBlaze", NMS.getClass("World")),
-        BOAT("EntityBoat", NMS.getClass("World")),
-        CAVE_SPIDER("EntityCaveSpider", NMS.getClass("World")),
-        CHICKEN("EntityChicken", NMS.getClass("World")),
-        COW("EntityCow", NMS.getClass("World")),
-        CREEPER("EntityCreeper", NMS.getClass("World")),
-        EGG("EntityEgg", NMS.getClass("World"), double.class, double.class, double.class),
-        ENDER_CRYSTAL("EntityEnderCrystal", NMS.getClass("World")),
-        ENDER_DRAGON("EnityEnderDragon", NMS.getClass("World")),
-        ENDERMAN("EntityEnderman", NMS.getClass("World")),
-        ENDERMITE("EntityEndermite", NMS.getClass("World")),
-        ENDER_PEARL("EntityEnderPearl", NMS.getClass("World")),
-        EXPERIENCE_ORB("EntityExperienceOrb", NMS.getClass("World"), double.class, double.class, double.class),
-        FALLING_BLOCK("EntityFallingBlock", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("IBlockData")),
-        FIREWORK("EntityFireworks", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("ItemStack")),
-        GHAST("EntityGhast", NMS.getClass("World")),
-        GIANT("EntityGiantZombie", NMS.getClass("World")),
-        GUARDIAN("EntityGuardian", NMS.getClass("World")),
-        HORSE("EntityHorse", NMS.getClass("World")),
-        IRON_GOLEM("EntityIronGolem", NMS.getClass("World")),
-        ITEM("EntityItem", NMS.getClass("World"), double.class, double.class, double.class),
-        ITEM_FRAME("EntityItemFrame", NMS.getClass("World"), NMS.getClass("BlockPosition"), NMS.getClass("EnumDirection")),
-        LARGE_FIREBALL("EntityLargeFireball", NMS.getClass("World")),
-        LIGHTNING("EntityLightning", NMS.getClass("World"), double.class, double.class, double.class),
-        MAGMA_CUBE("EntityMagmaCube", NMS.getClass("World")),
-        MINECART_CHEST("EntityMinecartChest", NMS.getClass("World")),
-        MINECART_COMMAND_BLOCK("EntityMinecartCommandBlock", NMS.getClass("World")),
-        MINECART_FURNACE("EntityMinecartFurnace", NMS.getClass("World")),
-        MINECART_HOPPER("EntityMinecartHopper", NMS.getClass("World")),
-        MINECART_MOB_SPAWNER("EntityMinecartMobSpawner", NMS.getClass("World")),
-        MINECART_TNT("EntityMinecartTNT", NMS.getClass("World")),
-        MUSHROOM_COW("EntityMushroomCow", NMS.getClass("World")),
-        OCELOT("EntityOcelot", NMS.getClass("World")),
-        PAINTING("EntityPainting", NMS.getClass("World"), NMS.getClass("BlockPosition"), NMS.getClass("EnumDirection")),
-        PIG("EntityPig", NMS.getClass("World")),
-        PIG_ZOMBIE("EntityPigZombie", NMS.getClass("World")),
-        PLAYER("EntityPlayer", NMS.getClass("MinecraftServer"), NMS.getClass("WorldServer"), CMA.getClass("GameProfile"), NMS.getClass("PlayerInteractManager")),
-        POTION("EntityPotion", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("ItemStack")),
-        RABBIT("EntityRabbit", NMS.getClass("World")),
-        SHEEP("EntitySheep", NMS.getClass("World")),
-        SILVERFISH("EntitySilverfish", NMS.getClass("World")),
-        SKELETON("EntitySkeleton", NMS.getClass("World")),
-        SLIME("EntitySlime", NMS.getClass("World")),
-        SMALL_FIREBALL("EntitySmallFireball", NMS.getClass("World")),
-        SNOWBALL("EntitySnowball", NMS.getClass("World"), double.class, double.class, double.class),
-        SNOWMAN("EntitySnowman", NMS.getClass("World")),
-        SPIDER("EntitySpider", NMS.getClass("World")),
-        SQUID("EntitySquid", NMS.getClass("World")),
-        EXPERIENCE_BOTTLE("EntityExperienceBottle", NMS.getClass("World"), double.class, double.class, double.class),
-        TNT("EntityTNTPrimed", NMS.getClass("World")),
-        VILLAGER("EntityVillager", NMS.getClass("World")),
-        WITCH("EntityWitch", NMS.getClass("World")),
-        WITHER("EntityWither", NMS.getClass("World")),
-        WITHER_SKULL("EntityWitherSkull", NMS.getClass("World")),
-        WOLF("EntityWolf", NMS.getClass("World")),
-        ZOMBIE("EntityZombie", NMS.getClass("World"));
+        ARMOR_STAND(0x4E,"EntityArmorStand", NMS.getClass("World")),
+        ARROW(0x3C,"EntityArrow", NMS.getClass("World"), double.class, double.class, double.class),
+        BAT(0x41,"EntityBat", NMS.getClass("World")),
+        BLAZE(0x3D,"EntityBlaze", NMS.getClass("World")),
+        BOAT(0x01,"EntityBoat", NMS.getClass("World")),
+        CAVE_SPIDER(0x3B,"EntityCaveSpider", NMS.getClass("World")),
+        CHICKEN(0x5D,"EntityChicken", NMS.getClass("World")),
+        COW(0x5C,"EntityCow", NMS.getClass("World")),
+        CREEPER(0x32,"EntityCreeper", NMS.getClass("World")),
+        EGG(0x3E,"EntityEgg", NMS.getClass("World"), double.class, double.class, double.class),
+        ENDER_CRYSTAL(0x33,"EntityEnderCrystal", NMS.getClass("World")),
+        ENDER_DRAGON(0x3F,"EnityEnderDragon", NMS.getClass("World")),
+        ENDERMAN(0x3A,"EntityEnderman", NMS.getClass("World")),
+        ENDERMITE(0x43,"EntityEndermite", NMS.getClass("World")),
+        ENDER_PEARL(0x41,"EntityEnderPearl", NMS.getClass("World")),
+        EXPERIENCE_ORB(0x00,"EntityExperienceOrb", NMS.getClass("World"), double.class, double.class, double.class),
+        FALLING_BLOCK(0x46,"EntityFallingBlock", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("IBlockData")),
+        FIREWORK(0x4C,"EntityFireworks", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("ItemStack")),
+        GHAST(0x38,"EntityGhast", NMS.getClass("World")),
+        GIANT(0x35,"EntityGiantZombie", NMS.getClass("World")),
+        GUARDIAN(0x44,"EntityGuardian", NMS.getClass("World")),
+        HORSE(0x64,"EntityHorse", NMS.getClass("World")),
+        IRON_GOLEM(0x63,"EntityIronGolem", NMS.getClass("World")),
+        ITEM(0x02,"EntityItem", NMS.getClass("World"), double.class, double.class, double.class),
+        ITEM_FRAME(0x47,"EntityItemFrame", NMS.getClass("World"), NMS.getClass("BlockPosition"), NMS.getClass("EnumDirection")),
+        LARGE_FIREBALL(0x3F,"EntityLargeFireball", NMS.getClass("World")),
+        LIGHTNING(0x00,"EntityLightning", NMS.getClass("World"), double.class, double.class, double.class),
+        MAGMA_CUBE(0x3E,"EntityMagmaCube", NMS.getClass("World")),
+        MINECART_CHEST(0x0A,"EntityMinecartChest", NMS.getClass("World")),
+        MINECART_COMMAND_BLOCK(0x0A,"EntityMinecartCommandBlock", NMS.getClass("World")),
+        MINECART_FURNACE(0x0A,"EntityMinecartFurnace", NMS.getClass("World")),
+        MINECART_HOPPER(0x0A,"EntityMinecartHopper", NMS.getClass("World")),
+        MINECART_MOB_SPAWNER(0x0A,"EntityMinecartMobSpawner", NMS.getClass("World")),
+        MINECART_TNT(0x0A,"EntityMinecartTNT", NMS.getClass("World")),
+        MUSHROOM_COW(0x60,"EntityMushroomCow", NMS.getClass("World")),
+        OCELOT(0x62,"EntityOcelot", NMS.getClass("World")),
+        PAINTING(0x00,"EntityPainting", NMS.getClass("World"), NMS.getClass("BlockPosition"), NMS.getClass("EnumDirection")),
+        PIG(0x5A,"EntityPig", NMS.getClass("World")),
+        PIG_ZOMBIE(0x39,"EntityPigZombie", NMS.getClass("World")),
+        POTION(0x49,"EntityPotion", NMS.getClass("World"), double.class, double.class, double.class, NMS.getClass("ItemStack")),
+        RABBIT(0x65,"EntityRabbit", NMS.getClass("World")),
+        SHEEP(0x5B,"EntitySheep", NMS.getClass("World")),
+        SILVERFISH(0x3C,"EntitySilverfish", NMS.getClass("World")),
+        SKELETON(0x33,"EntitySkeleton", NMS.getClass("World")),
+        SLIME(0x37,"EntitySlime", NMS.getClass("World")),
+        SMALL_FIREBALL(0x40,"EntitySmallFireball", NMS.getClass("World")),
+        SNOWBALL(0x3D,"EntitySnowball", NMS.getClass("World"), double.class, double.class, double.class),
+        SNOWMAN(0x61,"EntitySnowman", NMS.getClass("World")),
+        SPIDER(0x34,"EntitySpider", NMS.getClass("World")),
+        SQUID(0x5E,"EntitySquid", NMS.getClass("World")),
+        EXPERIENCE_BOTTLE(0x4B,"EntityExperienceBottle", NMS.getClass("World"), double.class, double.class, double.class),
+        TNT(0x32,"EntityTNTPrimed", NMS.getClass("World")),
+        VILLAGER(0x78,"EntityVillager", NMS.getClass("World")),
+        WITCH(0x42,"EntityWitch", NMS.getClass("World")),
+        WITHER(0x40,"EntityWither", NMS.getClass("World")),
+        WITHER_SKULL(0x42,"EntityWitherSkull", NMS.getClass("World")),
+        WOLF(0x5F,"EntityWolf", NMS.getClass("World")),
+        ZOMBIE(0x36,"EntityZombie", NMS.getClass("World"));
 
+        public final int networkID;
         public final String className;
         public final Class<?>[] constructorArgs;
 
-        EntityType(String className, Class<?>... constructorArgs) {
+        EntityType(int networkID, String className, Class<?>... constructorArgs) {
+            this.networkID = networkID;
             this.className = className;
             this.constructorArgs = constructorArgs;
         }
+    }
+
+    /**
+     * Allow you to get the entity network ID
+     *
+     * @return the entity network ID
+     */
+    public int getNetworkID() {
+        try {
+            return networkID;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     /**
@@ -126,10 +143,14 @@ public class NMSEntities {
 
             final Constructor<?> entityConstructor = entityClass.getConstructor(type.constructorArgs);
 
-            final Object[] args = parameters.length == 0 ? new Object[] {NMSWorld.getWorld(world)} :  new Object[] {NMSWorld.getWorld(world), parameters};
+            final List<Object> tmp = new ArrayList<>();
+            tmp.add(NMSWorld.getWorld(world));
+            tmp.addAll(Arrays.asList(parameters));
+
+            final Object[] args = tmp.toArray();
 
             entity = entityConstructor.newInstance(args);
-
+            networkID = type.networkID;
         } catch (Exception e) {
             e.printStackTrace();
         }
